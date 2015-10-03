@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Clay
+  - Desert
+  - Ore
+  - Sheep
+  - Wheat
+  - Wood
+  - HexRenderer
   layers:
   - Default
   - TransparentFX
