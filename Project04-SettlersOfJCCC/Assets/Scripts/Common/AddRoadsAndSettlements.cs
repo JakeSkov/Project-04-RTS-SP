@@ -9,7 +9,7 @@ public class AddRoadsAndSettlements : MonoBehaviour {
 //	private PointerEventData buttonData;
 //	private GameObject parentObject;
 
-	void OnMouseDown()
+	public void OnMouseDown()
 	{
 		outputString = "Parent Name: " + gameObject.GetComponentInParent<HexPrefabData>().name
 			+ "  Side: " + gameObject.name + " was clicked!";
