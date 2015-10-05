@@ -273,7 +273,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11448494, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: hexName
-      value: ClayPrefab
+      value: Prefab1
       objectReference: {fileID: 0}
     - target: {fileID: 2316830, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -281,7 +281,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 3991cdda400ccfe468ea7c6304f9e821, type: 2}
     - target: {fileID: 128228, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: m_Name
-      value: ClayPrefab
+      value: Prefab1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
@@ -327,7 +327,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11448494, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: hexName
-      value: WoodPrefab
+      value: Prefab5
       objectReference: {fileID: 0}
     - target: {fileID: 2316830, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -335,7 +335,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 79aed334b6ca1674fafba7ea8196c41b, type: 2}
     - target: {fileID: 128228, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: m_Name
-      value: WoodPrefab
+      value: Prefab5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
@@ -381,7 +381,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11448494, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: hexName
-      value: WheatPrefab
+      value: Prefab4
       objectReference: {fileID: 0}
     - target: {fileID: 2316830, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -389,7 +389,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 1f0b1d4cd60e6de4c997495587b0e023, type: 2}
     - target: {fileID: 128228, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: m_Name
-      value: WheatPrefab
+      value: Prefab4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
@@ -435,7 +435,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11448494, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: hexName
-      value: OrePrefab
+      value: Prefab6
       objectReference: {fileID: 0}
     - target: {fileID: 2316830, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -443,7 +443,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: ca0662f9a3c88354f88523cb3e3f03cd, type: 2}
     - target: {fileID: 128228, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: m_Name
-      value: OrePrefab
+      value: Prefab6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
@@ -489,11 +489,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11448494, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: hexName
-      value: SheepPrefab
+      value: Prefab3
       objectReference: {fileID: 0}
     - target: {fileID: 128228, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: m_Name
-      value: SheepPrefab
+      value: Prefab3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
@@ -539,7 +539,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11448494, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: hexName
-      value: DesertPrefab
+      value: Prefab2
       objectReference: {fileID: 0}
     - target: {fileID: 2316830, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -547,7 +547,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: c669d517407221a4b973d68135eca005, type: 2}
     - target: {fileID: 128228, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
       propertyPath: m_Name
-      value: DesertPrefab
+      value: Prefab2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
