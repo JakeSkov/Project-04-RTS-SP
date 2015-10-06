@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class MapDataScript : MonoBehaviour {
 
+	const float VERTICAL_SEPARATION = 0.8593752f;
+//	const float VERTICAL_SEPARATION = 0.8942308f;
 //	public List<HexDataScript> hexList;
 
 //	public void LoadMapData()
@@ -22,10 +24,10 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
 				tempHexData.hexDataGridLocation = new Vector2(-1f, 2f);
 				//tempHexData.hexDataNeighbors = 
-				tempHexData.hexDataNumber = 11;
+				tempHexData.hexDataNumber = 2;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.WOOD;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -35,10 +37,10 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
 				tempHexData.hexDataGridLocation = new Vector2(0f, 2f);
 				//tempHexData.hexDataNeighbors = 
-				tempHexData.hexDataNumber = 12;
+				tempHexData.hexDataNumber = 3;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.WOOL;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -48,10 +50,10 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
 				tempHexData.hexDataGridLocation = new Vector2(1f, 2f);
 				//tempHexData.hexDataNeighbors = 
-				tempHexData.hexDataNumber = 9;
+				tempHexData.hexDataNumber = 6;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.GRAIN;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -64,7 +66,7 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataNumber = 4;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.BRICK;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -77,7 +79,7 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataNumber = 6;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.GRAIN;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -90,7 +92,7 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataNumber = 5;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.BRICK;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -100,10 +102,10 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
 				tempHexData.hexDataGridLocation = new Vector2(1.5f, 1f);
 				//tempHexData.hexDataNeighbors = 
-				tempHexData.hexDataNumber = 10;
+				tempHexData.hexDataNumber = 2;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.WOOL;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -116,7 +118,7 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataNumber = 2;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.WOOL;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -129,7 +131,7 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataNumber = 3;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.WOOD;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -139,10 +141,10 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
 				tempHexData.hexDataGridLocation = new Vector2(0f, 0f);
 				//tempHexData.hexDataNeighbors = 
-				tempHexData.hexDataNumber = 11;
+				tempHexData.hexDataNumber = 1;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.GRAIN;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -155,7 +157,7 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataNumber = 4;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.WOOD;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -165,10 +167,10 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
 				tempHexData.hexDataGridLocation = new Vector2(2f, 0f);
 				//tempHexData.hexDataNeighbors = 
-				tempHexData.hexDataNumber = 8;
+				tempHexData.hexDataNumber = 1;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.GRAIN;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -178,10 +180,10 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
 				tempHexData.hexDataGridLocation = new Vector2(-1.5f, -1f);
 				//tempHexData.hexDataNeighbors = 
-				tempHexData.hexDataNumber = 8;
+				tempHexData.hexDataNumber = 1;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.BRICK;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -191,10 +193,10 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
 				tempHexData.hexDataGridLocation = new Vector2(-0.5f, -1f);
 				//tempHexData.hexDataNeighbors = 
-				tempHexData.hexDataNumber = 10;
+				tempHexData.hexDataNumber = 4;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.WOOL;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -204,10 +206,10 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
 				tempHexData.hexDataGridLocation = new Vector2(0.5f, -1f);
 				//tempHexData.hexDataNeighbors = 
-				tempHexData.hexDataNumber = 9;
+				tempHexData.hexDataNumber = 5;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.WOOL;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -220,7 +222,7 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataNumber = 3;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.BRICK;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -233,7 +235,7 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataNumber = 5;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.WOOD;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -246,7 +248,7 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataNumber = 2;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.GRAIN;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -259,7 +261,7 @@ public class MapDataScript : MonoBehaviour {
 				tempHexData.hexDataNumber = 6;
 				tempHexData.hexDataPlayer = "None";
 				tempHexData.hexDataPosition =
-					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
+					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y * VERTICAL_SEPARATION, 0f);
 				tempHexData.hexDataResourceType = ResourceTypes.WOOD;
 				tempHexData.hexDataNeighbors = CalcNeighbors(tempHexData.hexDataGridLocation);
 				hexList.Add(tempHexData);
@@ -308,12 +310,12 @@ public class MapDataScript : MonoBehaviour {
 	{
 		Vector2[] tempNeighbors = new Vector2[6];
 
-		tempNeighbors[0] = new Vector2(pGridLocation.x - 2f, pGridLocation.y);
-		tempNeighbors[1] = new Vector2(pGridLocation.x - 1f, pGridLocation.y + 1f);
-		tempNeighbors[2] = new Vector2(pGridLocation.x + 1f, pGridLocation.y + 1f);
-		tempNeighbors[3] = new Vector2(pGridLocation.x + 2f, pGridLocation.y);
-		tempNeighbors[4] = new Vector2(pGridLocation.x + 1f, pGridLocation.y - 1f);
-		tempNeighbors[5] = new Vector2(pGridLocation.x - 1f, pGridLocation.y - 1f);
+		tempNeighbors[0] = new Vector2(pGridLocation.x - 1f, pGridLocation.y);
+		tempNeighbors[1] = new Vector2(pGridLocation.x - 0.5f, pGridLocation.y + 1f);
+		tempNeighbors[2] = new Vector2(pGridLocation.x + 0.5f, pGridLocation.y + 1f);
+		tempNeighbors[3] = new Vector2(pGridLocation.x + 1f, pGridLocation.y);
+		tempNeighbors[4] = new Vector2(pGridLocation.x + 0.5f, pGridLocation.y - 1f);
+		tempNeighbors[5] = new Vector2(pGridLocation.x - 0.5f, pGridLocation.y - 1f);
 		return tempNeighbors;
 	}
 
