@@ -13,13 +13,16 @@ public class GameControlScript : MonoBehaviour {
 //		gameObject.GetComponent<MapDataScript>().LoadMapData();
 		hexList = gameObject.GetComponent<MapDataScript>().LoadMapData();
 
-		foreach (HexDataScript hexData in hexList)
+		if (hexList != null)
 		{
-			GameObject newHex = (GameObject)Instantiate(hexPrefab, hexData.hexDataPosition, Quaternion.identity);
-			newHex.name = hexData.hexDataName;
-			newHex.GetComponent<HexPrefabData>().SetHexName(newHex.name);
-			newHex.GetComponent<HexPrefabData>().SetHexNumber(hexData.hexDataNumber);
-			newHex.GetComponent<HexPrefabData>().SetHexResourceType(hexData.hexDataResourceType);
+			foreach (HexDataScript hexData in hexList)
+			{
+				GameObject newHex = (GameObject)Instantiate(hexPrefab, hexData.hexDataPosition, Quaternion.identity);
+				newHex.name = hexData.hexDataName;
+				newHex.GetComponent<HexPrefabData>().SetHexName(newHex.name);
+				newHex.GetComponent<HexPrefabData>().SetHexNumber(hexData.hexDataNumber);
+				newHex.GetComponent<HexPrefabData>().SetHexResourceType(hexData.hexDataResourceType);
+			}
 		}
 
 //		for (int i = -5; i < 6; i++)
