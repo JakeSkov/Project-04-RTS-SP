@@ -2,18 +2,9 @@
 using UnityEditor;
 using System.Collections;
 
-public enum TileTypes
-{
-    CLAY,
-    WHEAT,
-    LUMBER,
-    SHEEP
-}
-
 public class EditorMapBuilder : EditorWindow
 {
-    public TileTypes[] tiles = new TileTypes[19];
-
+    ResourceTypes[] tileTypes;
     public static string levelName;
     public static string authorName;
 
@@ -34,5 +25,7 @@ public class EditorMapBuilder : EditorWindow
         levelName = EditorGUILayout.TextField("Level Name:\t", levelName);
         authorName = EditorGUILayout.TextField("Created by:\t", authorName);
         EditorGUILayout.EndVertical();
+
+
     }
 }
