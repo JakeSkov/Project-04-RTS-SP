@@ -11,6 +11,8 @@ public enum ResourceTypes
 
 public static class HelperScript
 {
+	public static int playerCount;
+//	public static int playerCount {get; private set;}
 
 	// Use this for initialization
 //	void Start () {

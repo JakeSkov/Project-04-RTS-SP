@@ -6,6 +6,7 @@ using System.Collections;
 public class AddRoadsAndSettlements : MonoBehaviour {
 
 	private string outputString;
+	private GameControlScript gameControlScript;
 //	private PointerEventData buttonData;
 //	private GameObject parentObject;
 
@@ -20,12 +21,17 @@ public class AddRoadsAndSettlements : MonoBehaviour {
 //		PointerEventData
 //		outputString = gameObject.name + ": " + buttonData;
 		Debug.Log(outputString);
+
+		if (gameObject.name == "URVertex")
+		{
+			gameControlScript.AddSettlement(gameObject.GetComponentInParent<HexPrefabData>().name);
+		}
 	}
 	
 	// Use this for initialization
-//	void Start () {
-//		
-//	}
+	void Start () {
+		gameControlScript = Camera.main.GetComponent<GameControlScript>();
+	}
 	
 	// Update is called once per frame
 //	void Update () {
