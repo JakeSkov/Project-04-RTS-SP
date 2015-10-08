@@ -35,10 +35,10 @@ public class PlayerUIController : MonoBehaviour
     //Displays the players resources 
     void UpdateUI()
     {
-        woodAmount.text = "Wood:\t" + wood;
-        brickAmount.text = "Bricks:\t" + brick;
-        grainAmount.text = "Grain:\t" + grain;
-        sheepAmount.text = "Sheep:\t" + sheep;
+        woodAmount.text = wood.ToString();
+        brickAmount.text = brick.ToString();
+        grainAmount.text = grain.ToString();
+        sheepAmount.text = sheep.ToString();
     }
 
     void TestBuildables()
@@ -64,17 +64,19 @@ public class PlayerUIController : MonoBehaviour
 
     public void SettlementOnClick()
     {
-        Debug.Log("Built Settlement");
-        wood--;
-        brick--;
-        grain--;
-        sheep--;
+            Debug.Log("Built Settlement");
+            wood--;
+            brick--;
+            grain--;
+            sheep--;
+
     }
 
     public void RoadOnClick()
     {
-        Debug.Log("Built Road");
-        wood--;
-        brick--;
+            Debug.Log("Built Road");
+            wood--;
+            brick--;
+
     }
 }
