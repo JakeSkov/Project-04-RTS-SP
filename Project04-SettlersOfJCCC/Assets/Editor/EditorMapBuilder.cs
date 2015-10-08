@@ -2,6 +2,13 @@
 using UnityEditor;
 using System.Collections;
 
+public enum BoardTypes
+{ 
+    SMALL,
+    MEDIUM,
+    LARGE
+}
+
 public class EditorMapBuilder : EditorWindow
 {
     ResourceTypes[] tileTypes;
