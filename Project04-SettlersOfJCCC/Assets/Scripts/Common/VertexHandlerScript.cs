@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// VertexHandlerScript.cs
+// Author: Craig Broskow
+using UnityEngine;
 using System.Collections;
 
 public class VertexHandlerScript : MonoBehaviour {

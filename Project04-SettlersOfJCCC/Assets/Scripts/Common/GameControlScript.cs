@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// GameControlScript.cs
+// Author: Craig Broskow
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,11 +11,10 @@ public class GameControlScript : MonoBehaviour {
 
 	private List<HexDataScript> hexList;
 	private List<PlayerDataScript> playerList;
-	private int settCount = 0;
+	private List<SettDataScript> settList;
 
 	// Use this for initialization
 	void Start () {
-		HelperScript.playerCount = 0;
 		hexList = gameObject.GetComponent<MapDataScript>().LoadMapData();
 
 		if (hexList != null)
@@ -44,33 +45,151 @@ public class GameControlScript : MonoBehaviour {
 			playerData.LogPlayerData();
 		}
 
-		GameObject newSettlement =
-			(GameObject)Instantiate(settPrefab, new Vector3(0.5f, 0.25f, 0f), Quaternion.Euler(-90, 0, 0));
-		settCount++;
-		newSettlement.name = "Settlement" + settCount.ToString();
-		newSettlement.GetComponent<SettPrefabData>().SetSettName(newSettlement.name);
-		newSettlement.GetComponent<SettPrefabData>().SetSettNumber(settCount);
-		newSettlement.GetComponent<SettPrefabData>().SetSettColor(playerList[0].playerColor);
+		settList = new List<SettDataScript>();
 	} // end method Start
 
-	public void AddSettlement(string pHexPrefabName)
+	public void AddSettlement(string pHexPrefabName, string vertexName)
 	{
-		Vector3 UROffset = new Vector3(0.5f, 0.25f, 0f);
+		bool foundHex = false;
+		bool validVertex = true;
+		bool lowVertex = true;
+		string outputString;
+		string settlementName;
+		Vector3 vertexPosition = new Vector3(-100f, 100f, 0f);
+		Vector3 vertexOffset;
+		SettDataScript tempSettlementData;
+
+		settlementName = "Settlement" + (settList.Count + 1).ToString();
+		switch (vertexName)
+		{
+			case "TopVertex":
+				vertexOffset = new Vector3(0f, 0.5546875f, 0f);
+				lowVertex = true;
+				break;
+			case "URVertex":
+				vertexOffset = new Vector3(0.5f, 0.3046875f, 0f);
+				lowVertex = false;
+				break;
+			case "LRVertex":
+				vertexOffset = new Vector3(0.5f, -0.3046875f, 0f);
+				lowVertex = true;
+				break;
+			case "BottomVertex":
+				vertexOffset = new Vector3(0f, -0.5546875f, 0f);
+				lowVertex = false;
+				break;
+			case "LLVertex":
+				vertexOffset = new Vector3(-0.5f, -0.3046875f, 0f);
+				lowVertex = true;
+				break;
+			case "ULVertex":
+				vertexOffset = new Vector3(-0.5f, 0.3046875f, 0f);
+				lowVertex = false;
+				break;
+			default:
+				validVertex = false;
+				vertexOffset = new Vector3(-100f, 100f, 0f);
+				outputString = "GameControlScript method AddSettlement was passed " +
+					"the following invalid vertex name: " + vertexName;
+				Debug.Log(outputString);
+				break;
+		} // end switch
+
+		if (!validVertex)
+			return;
 
 		foreach (HexDataScript hexData in hexList)
 		{
-			if (hexData.hexDataName == pHexPrefabName)
+			if (!foundHex && hexData.hexDataName == pHexPrefabName)
 			{
-				GameObject newSettlement =
-					(GameObject)Instantiate(settPrefab, hexData.hexDataPosition + UROffset, Quaternion.Euler(-90, 0, 0));
-				settCount++;
-				newSettlement.name = "Settlement" + settCount.ToString();
-				newSettlement.GetComponent<SettPrefabData>().SetSettName(newSettlement.name);
-				newSettlement.GetComponent<SettPrefabData>().SetSettNumber(settCount);
-				newSettlement.GetComponent<SettPrefabData>().SetSettColor(playerList[0].playerColor);
+				Vector3 newPosition = hexData.hexDataPosition + vertexOffset;
+				if (!SettPositionEmpty(newPosition))
+				{
+					return;
+				}
+				else
+				{
+					GameObject newSettlement = (GameObject)Instantiate(settPrefab, newPosition,
+						Quaternion.Euler(-90, 0, 0));
+	//					hexData.hexDataPosition + vertexOffset, Quaternion.Euler(-90, 0, 0));
+					newSettlement.name = settlementName;
+					newSettlement.GetComponent<SettPrefabData>().SetSettName(newSettlement.name);
+					newSettlement.GetComponent<SettPrefabData>().SetSettNumber(settList.Count + 1);
+					newSettlement.GetComponent<SettPrefabData>().SetSettColor(playerList[0].playerColor);
+					vertexPosition = newSettlement.transform.position;
+					foundHex = true;
+				}
 			}
 		}
+
+		tempSettlementData = new SettDataScript();
+		tempSettlementData.settDataName = settlementName;
+		tempSettlementData.settDataNumber = settList.Count + 1;
+		tempSettlementData.settDataColor = playerList[0].playerColor;
+		tempSettlementData.settDataPosition = vertexPosition;
+		tempSettlementData.settDataPlayer = playerList[0].playerName;
+		tempSettlementData.settHexNeighbors = CalcHexNeighbors(vertexPosition, lowVertex);
+		settList.Add(tempSettlementData);
+
+		Debug.Log("Settlement Count: " + settList.Count.ToString());
+		tempSettlementData.LogSettlementData();
 	} // end method AddSettlement
+
+	private bool SettPositionEmpty(Vector3 pNewPosition)
+	{
+		const float MAX_VECTOR_DIFF = 0.01f;
+		string outputString;
+
+		if (settList.Count == 0)
+			return true;
+		foreach (SettDataScript settData in settList)
+		{
+			if ((settData.settDataPosition - pNewPosition).magnitude < MAX_VECTOR_DIFF)
+			{
+				outputString = "Settlement position is already occupied!";
+				Debug.Log(outputString);
+				return false;
+			}
+		}
+		
+		return true;
+	} // end method SettPositionEmpty
+	
+	private int[] CalcHexNeighbors(Vector3 pSettDataPosition, bool lowVertex)
+	{
+		const float MAX_VECTOR_DIFF = 0.01f;
+		int[] tempNeighbors = new int[3];
+		Vector3[] tempHexPositions = new Vector3[3];
+
+		if (lowVertex)
+		{
+			tempHexPositions[0] = pSettDataPosition + new Vector3(0f, -0.5546875f, 0f);
+			tempHexPositions[1] = pSettDataPosition + new Vector3(0.5f, 0.3046875f, 0f);
+			tempHexPositions[2] = pSettDataPosition + new Vector3(-0.5f, 0.3046875f, 0f);
+		}
+		else
+		{
+			tempHexPositions[0] = pSettDataPosition + new Vector3(0f, 0.5546875f, 0f);
+			tempHexPositions[1] = pSettDataPosition + new Vector3(0.5f, -0.3046875f, 0f);
+			tempHexPositions[2] = pSettDataPosition + new Vector3(-0.5f, -0.3046875f, 0f);
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			tempNeighbors[i] = 0;
+			foreach (HexDataScript hexData in hexList)
+			{
+				if ((hexData.hexDataPosition - tempHexPositions[i]).magnitude < MAX_VECTOR_DIFF)
+				{
+					tempNeighbors[i] = hexData.hexDataID;
+					Debug.Log("Matching Hex positions: ");
+					Debug.Log(hexData.hexDataPosition.ToString());
+					Debug.Log(tempHexPositions[i].ToString());
+				}
+			}
+		}
+		return tempNeighbors;
+	} // end method CalcHexNeighbors
 
 	// Update is called once per frame
 //	void Update () {

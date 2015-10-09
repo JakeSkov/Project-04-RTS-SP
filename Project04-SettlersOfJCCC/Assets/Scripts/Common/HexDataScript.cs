@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿// HexDataScript.cs
+// Author: Craig Broskow
+using UnityEngine;
 using System.Collections;
 
-//public class HexDataScript : MonoBehaviour {
 public class HexDataScript
 {
 
-//	public GameObject hexPrefab;
 	public string hexDataName;
+	public int hexDataID;
 	public int hexDataNumber;
 	public ResourceTypes hexDataResourceType;
 	public Vector2 hexDataGridLocation;
@@ -30,4 +31,4 @@ public class HexDataScript
 //	void Update () {
 //	
 //	}
-}
+} // end class HexDataScript

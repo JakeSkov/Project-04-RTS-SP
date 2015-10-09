@@ -11,6 +11,7 @@ TagManager:
   - Wheat
   - Wood
   - HexRenderer
+  - Vertex
   layers:
   - Default
   - TransparentFX

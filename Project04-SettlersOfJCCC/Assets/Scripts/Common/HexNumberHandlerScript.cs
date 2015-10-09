@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// HexNumberHandlerScript.cs
+// Author: Craig Broskow
+using UnityEngine;
 using System.Collections;
 
 public class HexNumberHandlerScript : MonoBehaviour {

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// SettPrefabData.cs
+// Author: Craig Broskow
+using UnityEngine;
 using System.Collections;
 
 public class SettPrefabData : MonoBehaviour {
@@ -7,17 +9,6 @@ public class SettPrefabData : MonoBehaviour {
 	public int settNumber;
 	public string settColor;
 
-	// Use this for initialization
-//	void Start ()
-//	{
-//
-//	}
-	
-	// Update is called once per frame
-	//	void Update () {
-	//	
-	//	}
-	
 	public void SetSettName(string pSettName)
 	{
 		settName = pSettName;
@@ -59,14 +50,21 @@ public class SettPrefabData : MonoBehaviour {
 				settlementMaterial = (Material)Resources.Load("Materials/Yellow");
 				GetComponent<MeshRenderer>().material = settlementMaterial;
 				break;
-//			case "Black":
-//				settlementMaterial = (Material)Resources.Load("Materials/Black");
-//				GetComponent<MeshRenderer>().material = settlementMaterial;
-//				break;
 			default:
 				settlementMaterial = (Material)Resources.Load("Materials/Black");
 				GetComponent<MeshRenderer>().material = settlementMaterial;
 				break;
 		} // end switch
 	} // end method SetSettColor
+	
+	// Use this for initialization
+	//	void Start ()
+	//	{
+	//
+	//	}
+	
+	// Update is called once per frame
+	//	void Update () {
+	//	
+	//	}
 }// end class SettPrefabData

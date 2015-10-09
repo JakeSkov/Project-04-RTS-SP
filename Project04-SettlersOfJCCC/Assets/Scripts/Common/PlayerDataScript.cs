@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// PlayerDataScript.cs
+// Author: Craig Broskow
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,6 +10,9 @@ public class PlayerDataScript
 	// list of player settlements
 	// list of player roads
 	// list of player resources
+	// list of ALL settlements
+	// list of ALL roads
+	// list of ALL resources
 
 	public string playerName;
 	public int playerNumber;

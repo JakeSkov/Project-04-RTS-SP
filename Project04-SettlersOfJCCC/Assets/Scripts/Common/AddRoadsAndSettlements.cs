@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// AddRoadsAndSettlements.cs
+// Author: Craig Broskow
+using UnityEngine;
 using System.Collections;
 //using UnityEngine.Events;
 //using UnityEngine.EventSystems;
@@ -22,9 +24,9 @@ public class AddRoadsAndSettlements : MonoBehaviour {
 //		outputString = gameObject.name + ": " + buttonData;
 		Debug.Log(outputString);
 
-		if (gameObject.name == "URVertex")
+		if (gameObject.tag == "Vertex")
 		{
-			gameControlScript.AddSettlement(gameObject.GetComponentInParent<HexPrefabData>().name);
+			gameControlScript.AddSettlement(gameObject.GetComponentInParent<HexPrefabData>().name, gameObject.name);
 		}
 	}
 	
