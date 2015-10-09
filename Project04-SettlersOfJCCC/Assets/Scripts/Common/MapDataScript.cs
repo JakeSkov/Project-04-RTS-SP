@@ -1,19 +1,17 @@
-﻿using UnityEngine;
+﻿// MapDataScript.cs
+// Author: Craig Broskow
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class MapDataScript : MonoBehaviour {
 
 	const float VERTICAL_SEPARATION = 0.8593752f;
-//	const float VERTICAL_SEPARATION = 0.8942308f;
-//	public List<HexDataScript> hexList;
 
 	public List<HexDataScript> hexList;
 
-//	public void LoadMapData()
 	public List<HexDataScript> LoadMapData()
 	{
-//		List<HexDataScript> hexList = new List<HexDataScript>();
 		hexList = new List<HexDataScript>();
 		HexDataScript tempHexData;
 
@@ -25,6 +23,7 @@ public class MapDataScript : MonoBehaviour {
 			case 1:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(-1f, 2f);
 //				tempHexData.hexDataGridLocation = new Vector2(-10f, 2f);
 				tempHexData.hexDataNumber = 2;
@@ -38,6 +37,7 @@ public class MapDataScript : MonoBehaviour {
 			case 2:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(0f, 2f);
 //				tempHexData.hexDataNumber = 2;
 				tempHexData.hexDataNumber = 3;
@@ -52,6 +52,7 @@ public class MapDataScript : MonoBehaviour {
 			case 3:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(1f, 2f);
 				tempHexData.hexDataNumber = 6;
 				tempHexData.hexDataPlayer = "None";
@@ -64,6 +65,7 @@ public class MapDataScript : MonoBehaviour {
 			case 4:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(-1.5f, 1f);
 				tempHexData.hexDataNumber = 4;
 				tempHexData.hexDataPlayer = "None";
@@ -76,6 +78,7 @@ public class MapDataScript : MonoBehaviour {
 			case 5:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(-0.5f, 1f);
 				tempHexData.hexDataNumber = 6;
 				tempHexData.hexDataPlayer = "None";
@@ -88,6 +91,7 @@ public class MapDataScript : MonoBehaviour {
 			case 6:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(0.5f, 1f);
 				tempHexData.hexDataNumber = 5;
 				tempHexData.hexDataPlayer = "None";
@@ -100,6 +104,7 @@ public class MapDataScript : MonoBehaviour {
 			case 7:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(1.5f, 1f);
 				tempHexData.hexDataNumber = 2;
 				tempHexData.hexDataPlayer = "None";
@@ -112,6 +117,7 @@ public class MapDataScript : MonoBehaviour {
 			case 8:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(-2f, 0f);
 				tempHexData.hexDataNumber = 2;
 				tempHexData.hexDataPlayer = "None";
@@ -124,6 +130,7 @@ public class MapDataScript : MonoBehaviour {
 			case 9:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(-1f, 0f);
 				tempHexData.hexDataNumber = 3;
 				tempHexData.hexDataPlayer = "None";
@@ -136,6 +143,7 @@ public class MapDataScript : MonoBehaviour {
 			case 10:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(0f, 0f);
 				tempHexData.hexDataNumber = 1;
 				tempHexData.hexDataPlayer = "None";
@@ -148,6 +156,7 @@ public class MapDataScript : MonoBehaviour {
 			case 11:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(1f, 0f);
 				tempHexData.hexDataNumber = 4;
 				tempHexData.hexDataPlayer = "None";
@@ -160,6 +169,7 @@ public class MapDataScript : MonoBehaviour {
 			case 12:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(2f, 0f);
 				tempHexData.hexDataNumber = 1;
 				tempHexData.hexDataPlayer = "None";
@@ -172,6 +182,7 @@ public class MapDataScript : MonoBehaviour {
 			case 13:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(-1.5f, -1f);
 				tempHexData.hexDataNumber = 1;
 				tempHexData.hexDataPlayer = "None";
@@ -184,6 +195,7 @@ public class MapDataScript : MonoBehaviour {
 			case 14:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(-0.5f, -1f);
 				tempHexData.hexDataNumber = 4;
 				tempHexData.hexDataPlayer = "None";
@@ -196,6 +208,7 @@ public class MapDataScript : MonoBehaviour {
 			case 15:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(0.5f, -1f);
 				tempHexData.hexDataNumber = 5;
 				tempHexData.hexDataPlayer = "None";
@@ -208,6 +221,7 @@ public class MapDataScript : MonoBehaviour {
 			case 16:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(1.5f, -1f);
 				tempHexData.hexDataNumber = 3;
 				tempHexData.hexDataPlayer = "None";
@@ -220,6 +234,7 @@ public class MapDataScript : MonoBehaviour {
 			case 17:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(-1f, -2f);
 				tempHexData.hexDataNumber = 5;
 				tempHexData.hexDataPlayer = "None";
@@ -232,6 +247,7 @@ public class MapDataScript : MonoBehaviour {
 			case 18:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(0f, -2f);
 				tempHexData.hexDataNumber = 2;
 				tempHexData.hexDataPlayer = "None";
@@ -244,6 +260,7 @@ public class MapDataScript : MonoBehaviour {
 			case 19:
 				tempHexData.hexDataColor = Color.red;
 				tempHexData.hexDataName = "HexNumber" + i.ToString();
+				tempHexData.hexDataID = i;
 				tempHexData.hexDataGridLocation = new Vector2(1f, -2f);
 				tempHexData.hexDataNumber = 6;
 				tempHexData.hexDataPlayer = "None";
@@ -255,26 +272,12 @@ public class MapDataScript : MonoBehaviour {
 				break;
 			} // end switch
 			LogMapData(tempHexData);
-//			Debug.Log(tempHexData.ToString());
-
-//			GameObject newHex = (GameObject)Instantiate(hexPrefab, new Vector3(i, 0, 0), Quaternion.identity);
-//			newHex.name = "HexNumber" + (i + 6).ToString();
-//			newHex.GetComponent<HexPrefabData>().SetHexName(newHex.name);
 		} // end for (int i = 1; i <= 19; i++)...
-
-//		foreach (HexDataScript hexData in hexList)
-//		{
-//			if (!HasANeighbor(hexData))
-//			{
-//				return null;
-//			}
-//		}
 
 		if (MapIsValid())
 			return hexList;
 		else
 			return null;
-
 	} // end method LoadMapData
 
 	public void LogMapData(HexDataScript pHexData)
@@ -283,6 +286,7 @@ public class MapDataScript : MonoBehaviour {
 
 		outputString = "Color: " + pHexData.hexDataColor.ToString() +
 			" Name: " + pHexData.hexDataName.ToString() +
+			" ID: " + pHexData.hexDataID.ToString() +
 			" Grid Location: " + pHexData.hexDataGridLocation.ToString() +
 			" Number: " + pHexData.hexDataNumber.ToString() +
 			" Player: " + pHexData.hexDataPlayer.ToString() +
@@ -292,16 +296,6 @@ public class MapDataScript : MonoBehaviour {
 			" Neighbor 5: " + pHexData.hexDataNeighbors[4];
 
 		Debug.Log(outputString);
-
-//		tempHexData.hexDataColor = Color.red;
-//		tempHexData.hexDataName = "HexNumber" + i.ToString();
-//		tempHexData.hexDataGridLocation = new Vector2(-2f, 2f);
-//		//tempHexData.hexDataNeighbors = 
-//		tempHexData.hexDataNumber = 11;
-//		tempHexData.hexDataPlayer = "None";
-//		//				tempHexData.hexDataPosition =
-//		//					new Vector3(tempHexData.hexDataGridLocation.x, tempHexData.hexDataGridLocation.y, 0f);
-//		tempHexData.hexDataResourceType = ResourceTypes.WOOD;
 	} // end method LogMapData
 
 	public Vector2[] CalcNeighbors(Vector2 pGridLocation)
@@ -330,13 +324,6 @@ public class MapDataScript : MonoBehaviour {
 				{
 					if ((hexData.hexDataGridLocation - pHexData.hexDataNeighbors[i]).magnitude < MAX_VECTOR_DIFF)
 					{
-						//						outputString = "Name: " + pHexData.hexDataName.ToString() +
-						//							" Grid Location: " + pHexData.hexDataGridLocation.ToString() +
-						//							" Neighbor: " + hexData.hexDataName.ToString() +
-						//							" Location: " + hexData.hexDataGridLocation.ToString() +
-						//							" Difference: " +
-						//							(hexData.hexDataGridLocation - pHexData.hexDataNeighbors[i]).magnitude.ToString();
-						//						Debug.Log(outputString);
 						return true;
 					}
 				}
@@ -345,8 +332,6 @@ public class MapDataScript : MonoBehaviour {
 		
 		outputString = "Hex name: " + pHexData.hexDataName.ToString() +
 			" is not connected to any other Hex grids!";
-//			" is not connected to any other Hex grids!\n" +
-//				"This map is invalid!";
 		Debug.Log(outputString);
 		return false;
 	} // end method HasANeighbor

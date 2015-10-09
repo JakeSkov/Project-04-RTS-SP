@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// BackgroundHandlerScript.cs
+// Author: Craig Broskow
+using UnityEngine;
 using System.Collections;
 
 public class BackgroundHandlerScript : MonoBehaviour {

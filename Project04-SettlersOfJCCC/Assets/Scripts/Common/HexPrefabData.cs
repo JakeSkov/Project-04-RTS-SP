@@ -1,3 +1,5 @@
+// HexPrefabData.cs
+// Author: Craig Broskow
 using UnityEngine;
 using System.Collections;
 
@@ -8,14 +10,10 @@ public class HexPrefabData : MonoBehaviour {
 	public ResourceTypes hexResourceType;
 
 	// Use this for initialization
-	void Start ()
-	{
-//		int tempHexNumber = Random.Range(1, 7);
-//		SetHexNumber(tempHexNumber);
-//		ResourceTypes tempResourceType =
-//			(ResourceTypes)Random.Range((int)ResourceTypes.GRAIN, (int)ResourceTypes.WOOL + 1);
-//		SetHexResourceType(tempResourceType);
-	}
+//	void Start ()
+//	{
+//
+//	}
 	
 	// Update is called once per frame
 //	void Update () {
