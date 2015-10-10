@@ -1,31 +1,31 @@
-﻿// AddRoadsAndSettlements.cs
+// AddRoadsAndSettlements.cs
 // Author: Craig Broskow
 using UnityEngine;
 using System.Collections;
-//using UnityEngine.Events;
-//using UnityEngine.EventSystems;
 
 public class AddRoadsAndSettlements : MonoBehaviour {
 
 	private string outputString;
 	private GameControlScript gameControlScript;
-//	private PointerEventData buttonData;
-//	private GameObject parentObject;
 
 	public void OnMouseDown()
 	{
+		if (!HelperScript.enableRoads && !HelperScript.enableSettlements)
+			return;
+
 		outputString = "Parent Name: " + gameObject.GetComponentInParent<HexPrefabData>().name
 			+ "  Side: " + gameObject.name + " was clicked!";
-//		outputString = gameObject.name + ": Mouse was clicked!";
-//		outputString = gameObject.name + ": " + gameObject.transform.localScale.ToString();
-//		buttonData = UnityEngine.EventSystems.PointerInputModule.MouseButtonEventData;
-//			PointerInputModule.MouseButtonEventData;
-//		PointerEventData
-//		outputString = gameObject.name + ": " + buttonData;
 		Debug.Log(outputString);
 
-		if (gameObject.tag == "Vertex")
+		if (HelperScript.enableRoads && gameObject.tag == "Side")
 		{
+			HelperScript.enableRoads = false;
+			gameControlScript.AddRoad(gameObject.GetComponentInParent<HexPrefabData>().name, gameObject.name);
+		}
+
+		if (HelperScript.enableSettlements && gameObject.tag == "Vertex")
+		{
+			HelperScript.enableSettlements = false;
 			gameControlScript.AddSettlement(gameObject.GetComponentInParent<HexPrefabData>().name, gameObject.name);
 		}
 	}

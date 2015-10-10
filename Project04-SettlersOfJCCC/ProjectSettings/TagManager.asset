@@ -12,6 +12,7 @@ TagManager:
   - Wood
   - HexRenderer
   - Vertex
+  - Side
   layers:
   - Default
   - TransparentFX

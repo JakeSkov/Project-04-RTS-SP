@@ -68,7 +68,7 @@ GameObject:
   - 114: {fileID: 11402328}
   m_Layer: 0
   m_Name: LRSide
-  m_TagString: Untagged
+  m_TagString: Side
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,7 +207,7 @@ GameObject:
   - 114: {fileID: 11496676}
   m_Layer: 0
   m_Name: URSide
-  m_TagString: Untagged
+  m_TagString: Side
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,7 +263,7 @@ GameObject:
   - 114: {fileID: 11481108}
   m_Layer: 0
   m_Name: LLSide
-  m_TagString: Untagged
+  m_TagString: Side
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -410,7 +410,7 @@ GameObject:
   - 114: {fileID: 11484368}
   m_Layer: 0
   m_Name: ULSide
-  m_TagString: Untagged
+  m_TagString: Side
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -429,7 +429,7 @@ GameObject:
   - 114: {fileID: 11432918}
   m_Layer: 0
   m_Name: LeftSide
-  m_TagString: Untagged
+  m_TagString: Side
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -448,7 +448,7 @@ GameObject:
   - 114: {fileID: 11495522}
   m_Layer: 0
   m_Name: RightSide
-  m_TagString: Untagged
+  m_TagString: Side
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
