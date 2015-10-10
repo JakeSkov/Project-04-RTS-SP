@@ -68,6 +68,11 @@ public class GameControlScript : MonoBehaviour {
 		settList = new List<SettDataScript>();
 		roadList = new List<RoadDataScript>();
 
+//		HelperScript.LoadMapNames();
+//		LogMapNames();
+//		HelperScript.LoadGameNames();
+//		LogGameNames();
+
 		currentPhase = 0;
 		RunGame();
 	} // end method Start
@@ -417,4 +422,20 @@ public class GameControlScript : MonoBehaviour {
 			RunGame();
 		}
 	}
+
+	public void LogMapNames()
+	{
+		foreach (string mapName in HelperScript.mapList)
+		{
+			Debug.Log (mapName);
+		}
+	} // end method LogMapNames
+	
+	public void LogGameNames()
+	{
+		foreach (string gameName in HelperScript.gameList)
+		{
+			Debug.Log (gameName);
+		}
+	} // end method LogGameNames
 } // end class GameControlScript
