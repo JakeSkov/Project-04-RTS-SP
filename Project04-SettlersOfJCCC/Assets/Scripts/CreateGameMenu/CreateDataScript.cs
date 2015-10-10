@@ -12,6 +12,8 @@ public class CreateDataScript : MonoBehaviour
     string playerName = "Player name";
     Rect windowRect = new Rect(Screen.width / 2 - 150, Screen.height / 2 - 75, 300, 100);
 
+    GameObject[] newMapButtons;
+
     void Awake()
     {
         showWindow = false;
@@ -20,7 +22,10 @@ public class CreateDataScript : MonoBehaviour
     public static void ShowWindow()
     {
         showWindow = true;
-        GameObject.Find("Dummy").GetComponent<Button>().enabled = false;
+        foreach (GameObject mapButton in GameObject.FindGameObjectsWithTag("NewMapButton"))
+        {
+            mapButton.GetComponent<Button>().enabled = false;
+        }
         GameObject.Find("btn_Back").GetComponent<Button>().enabled = false;
         GameObject.Find("btn_Continue").GetComponent<Button>().enabled = false;
     }
@@ -56,7 +61,10 @@ public class CreateDataScript : MonoBehaviour
         Rect backtoSelectRect = new Rect(196, DY * 3 + 15, 96, DY);
         if(GUI.Button(backtoSelectRect, "Back"))
         {
-            GameObject.Find("Dummy").GetComponent<Button>().enabled = true;
+            foreach (GameObject mapButton in GameObject.FindGameObjectsWithTag("NewMapButton"))
+            {
+                mapButton.GetComponent<Button>().enabled = true;
+            }
             GameObject.Find("btn_Back").GetComponent<Button>().enabled = true;
             showWindow = false;
         }

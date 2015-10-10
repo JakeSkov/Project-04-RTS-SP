@@ -13,6 +13,7 @@ TagManager:
   - HexRenderer
   - Vertex
   - Side
+  - NewMapButton
   layers:
   - Default
   - TransparentFX
