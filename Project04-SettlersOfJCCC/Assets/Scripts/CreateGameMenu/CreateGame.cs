@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -26,7 +27,7 @@ public class CreateGame : MonoBehaviour
             mapButtonInstances[i].SetActive(true);
             mapButtonInstances[i].transform.SetParent(mapListScrollbar.transform, false);
             mapButtonInstances[i].GetComponentInChildren<Text>().text = HelperScript.mapList[i];
-            mapButtonInstances[i].GetComponent<Button>().onClick.SetPersistentListenerState(0, UnityEngine.Events.UnityEventCallState.RuntimeOnly);
+            mapButtonInstances[i].GetComponent<Button>().onClick.AddListener(() => SelectedLevel());
         }
     }
 
