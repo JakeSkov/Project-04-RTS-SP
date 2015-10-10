@@ -247,6 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexPrefab: {fileID: 128228, guid: cfa372011b6afdc4aa47cc051a495544, type: 2}
   settPrefab: {fileID: 112978, guid: 2ed0c02785bf93449895f76695e914ee, type: 2}
+  roadPrefab: {fileID: 135414, guid: 13302a412f032b24fa27e0c68c4f31ca, type: 2}
 --- !u!114 &1884303791
 MonoBehaviour:
   m_ObjectHideFlags: 0
