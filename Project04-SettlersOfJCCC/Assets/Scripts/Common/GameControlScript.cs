@@ -173,6 +173,11 @@ public class GameControlScript : MonoBehaviour {
 					HelperScript.enableSettlements = true;
 					return;
 				}
+				else if (!CheckAdjacentRoad(newPosition, lowVertex))
+				{
+					HelperScript.enableSettlements = true;
+					return;
+				}
 				else
 				{
 					GameObject newSettlement = (GameObject)Instantiate(settPrefab, newPosition,
@@ -258,6 +263,60 @@ public class GameControlScript : MonoBehaviour {
 		return tempNeighbors;
 	} // end method CalcHexNeighbors
 
+	private bool CheckAdjacentRoad(Vector3 pSettDataPosition, bool lowVertex)
+	{
+//		const float MAX_VECTOR_DIFF = 0.3f;
+		const float MAX_VECTOR_DIFF = 0.01f;
+		string outputString;
+		Vector3[] tempRoadPositions = new Vector3[3];
+		
+		if (roadList.Count == 0)
+		{
+			outputString = "You must place a settlement next to one of your roads!";
+			Debug.Log(outputString);
+			return false;
+		}
+
+		if (lowVertex)
+		{
+			tempRoadPositions[0] = pSettDataPosition + new Vector3(0f, 0.3046877f, -0.1f);
+//			tempRoadPositions[0] = pSettDataPosition + new Vector3(0f, 0.2886751f, -0.1f);
+			//0.3046877
+			tempRoadPositions[1] = pSettDataPosition + new Vector3(0.25f, -0.125f, -0.1f);
+			tempRoadPositions[2] = pSettDataPosition + new Vector3(-0.25f, -0.125f, -0.1f);
+//			tempRoadPositions[1] = pSettDataPosition + new Vector3(0.25f, -0.2113249f, -0.1f);
+//			tempRoadPositions[2] = pSettDataPosition + new Vector3(-0.25f, -0.2113249f, -0.1f);
+		}
+		else
+		{
+			tempRoadPositions[0] = pSettDataPosition + new Vector3(0f, -0.3046877f, -0.1f);
+//			tempRoadPositions[0] = pSettDataPosition + new Vector3(0f, -0.2886751f, -0.1f);
+			tempRoadPositions[1] = pSettDataPosition + new Vector3(0.25f, 0.125f, -0.1f);
+			tempRoadPositions[2] = pSettDataPosition + new Vector3(-0.25f, 0.125f, -0.1f);
+//			tempRoadPositions[1] = pSettDataPosition + new Vector3(0.25f, 0.2113249f, -0.1f);
+//			tempRoadPositions[2] = pSettDataPosition + new Vector3(-0.25f, 0.2113249f, -0.1f);
+		}
+		
+		for (int i = 0; i < 3; i++)
+		{
+			foreach (RoadDataScript roadData in roadList)
+			{
+				if ((roadData.roadDataPosition - tempRoadPositions[i]).magnitude < MAX_VECTOR_DIFF)
+				{
+					Debug.Log("Matching Road positions: ");
+					Debug.Log(roadData.roadDataPosition.ToString());
+					Debug.Log(tempRoadPositions[i].ToString());
+					if (roadData.roadDataPlayer == playerList[0].playerName)
+						return true;
+				}
+			}
+		}
+
+		outputString = "You must place a settlement next to one of your roads!";
+		Debug.Log(outputString);
+		return false;
+	} // end method CheckAdjacentRoad
+	
 	public void AddRoad(string pHexPrefabName, string pSideName)
 	{
 		bool foundHex = false;
@@ -423,7 +482,7 @@ public class GameControlScript : MonoBehaviour {
 		}
 	}
 
-	public void LogMapNames()
+	private void LogMapNames()
 	{
 		foreach (string mapName in HelperScript.mapList)
 		{
@@ -431,7 +490,7 @@ public class GameControlScript : MonoBehaviour {
 		}
 	} // end method LogMapNames
 	
-	public void LogGameNames()
+	private void LogGameNames()
 	{
 		foreach (string gameName in HelperScript.gameList)
 		{
