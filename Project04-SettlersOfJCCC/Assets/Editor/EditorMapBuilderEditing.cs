@@ -68,18 +68,51 @@ public class EditorMapBuilderEditing : EditorMapBuilder
 
     public static void Export(ResourceTypes[] tile)
     {
-        tiles = new string[tile.Length];
-        int lineNum;
-
-        for (int i = 0; i < tile.Length; i++)
+        if (levelName != null && authorName != null)
         {
-            tiles[i] = tile[i].ToString();
+            tiles = new string[tile.Length];
+            int numLines = 2;
+            int line = 0;
+
+            for (int i = 0; i < tile.Length; i++)
+            {
+                tiles[i] = tile[i].ToString();
+            }
+
+            string path = Application.dataPath + "/Maps/Custom/" + levelName + ".txt";
+            Debug.Log(path);
+            
+            //Writes all data to the given file under that name declared in the levelName variable 
+            StreamWriter sw = new StreamWriter(path);
+            for (int i = 0; i <= numLines; i++)
+            {
+                if (line == 0)
+                {
+                    sw.WriteLine(levelName);
+                    Debug.Log(levelName);
+                }
+                if (line == 1)
+                {
+                    sw.WriteLine(authorName);
+                    Debug.Log(authorName);
+                }
+                if (line == 2)
+                {
+                    for (int j = 0; j < tiles.Length; j++)
+                    {
+                        sw.Write(tiles[j] + " ");
+                        Debug.Log(tiles[j]);
+                    }
+                }
+                line++;
+                Debug.Log(line);
+            }
+
+            AssetDatabase.Refresh();
         }
-
-        string path = Application.dataPath + "/Maps/Custom";
-
-        
-
-        AssetDatabase.Refresh();
+        else
+        {
+            Debug.Log("No level name and/or no author name");
+        }
     }
 }

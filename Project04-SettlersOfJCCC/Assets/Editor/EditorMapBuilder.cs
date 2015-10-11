@@ -42,10 +42,21 @@ public class EditorMapBuilder : EditorWindow
         EditorGUILayout.Separator();
 
         //Sets up the Map
-        EditorMapBuilderEditing.MapRandomize(SideLength);
-        MapGenerator(EditorMapBuilderEditing.type, SideLength);
+        if (GUILayout.Button("Generate Map"))
+        {
+            EditorMapBuilderEditing.MapRandomize(SideLength);
+        }
 
-        if (GUILayout.Button("Export Map"))
+        //Displays the Map
+        if (EditorMapBuilderEditing.type != null)
+        {
+            MapGenerator(EditorMapBuilderEditing.type, SideLength);
+        }
+
+        EditorGUILayout.Separator();
+
+        //Exports map to a text file
+        if (GUILayout.Button("Export Map") && EditorMapBuilderEditing.type != null)
         {
             EditorMapBuilderEditing.Export(EditorMapBuilderEditing.type);
         }
