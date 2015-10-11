@@ -27,6 +27,8 @@ public class GameControlScript : MonoBehaviour {
 //	private bool phase4Done = true;
 //	private bool phase5Done = true;
 //	private bool phase6Done = true;
+	private PlayerUIController UIControllerScript;
+	private int diceRollValue = 0; // should be 1 (minimum) through 6 (maximum)
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +38,9 @@ public class GameControlScript : MonoBehaviour {
 		HelperScript.enableRoads = false;  // public static variable
 		HelperScript.enableSettlements = false;  // public static variable
 		hexList = gameObject.GetComponent<MapDataScript>().LoadMapData();
+		UIControllerScript = Camera.main.GetComponent<PlayerUIController>();
+//		UIControllerScript.DisplayDiceRoll(true);
+//		UIControllerScript.DisplayDiceValue(3);
 
 		if (hexList != null)
 		{
@@ -77,6 +82,12 @@ public class GameControlScript : MonoBehaviour {
 		RunGame();
 	} // end method Start
 	
+	public void SetGamePhase(int pGamePhase)
+	{
+		currentPhase = pGamePhase;
+		RunGame();
+	}
+
 	private void RunGame()
 	{
 		string outputString = "";
@@ -85,6 +96,14 @@ public class GameControlScript : MonoBehaviour {
 		{
 			case 0:
 				StartCoroutine("RunPhase0");
+				break;
+			case 1:
+				StartCoroutine("RunPhase1");
+				break;
+			case 2:
+//			StartCoroutine("RunPhase1");
+				outputString = "Starting Phase 2!";
+				Debug.Log(outputString);
 				break;
 			default:
 				outputString = "Game is over!  Thank you for playing!";
@@ -104,11 +123,115 @@ public class GameControlScript : MonoBehaviour {
 				HelperScript.enableRoads = false;
 			if (settList.Count > 0)
 				HelperScript.enableSettlements = false;
-
+			
 			yield return new WaitForSeconds(.1f);
 		}
 		currentPhaseDone = true;
 	} // end method RunPhase0
+	
+	IEnumerator RunPhase1()
+	{
+		currentPhaseDone = false;
+		UIControllerScript.EnableRollDiceButton(false);
+		diceRollValue = 0;
+		StartCoroutine("RunDiceRoll");
+		while (diceRollValue == 0)
+		{
+			yield return new WaitForSeconds(.1f);
+		}
+		CalcNewResources(); // should be a coroutine?
+		UIControllerScript.EnableRollDiceButton(true);
+		currentPhaseDone = true;
+	} // end method RunPhase1
+
+	IEnumerator RunDiceRoll()
+	{
+		int tempDiceValue = 0;
+
+		diceRollValue = 0;
+		UIControllerScript.DisplayDiceRoll(true);
+		for (int i = 0; i < 40; i++)
+		{
+			tempDiceValue = Random.Range(1, 7); // should return a random value between 1 and 6
+			UIControllerScript.DisplayDiceValue(tempDiceValue);
+			yield return new WaitForSeconds(.1f);
+		}
+		diceRollValue = tempDiceValue;
+	} // end method RunDiceRoll
+
+	private void CalcNewResources()
+	{
+		bool addedResource = false;
+		List<int> hexIDs = new List<int>();
+		string outputString;
+
+		if (settList.Count == 0)
+			return;
+		foreach (SettDataScript settData in settList)
+		{
+			if (settData.settDataPlayer == playerList[0].playerName)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					if (settData.settHexNeighbors[i] > 0)
+					{
+						hexIDs.Add(settData.settHexNeighbors[i]);
+					}
+				}
+			}
+		}
+
+		if (hexIDs.Count == 0)
+			return;
+		foreach (int pHexID in hexIDs)
+		{
+			switch (FindHexIDResource(pHexID))
+			{
+				case (int)ResourceTypes.BRICK:
+					playerList[0].playerBrick++;
+					addedResource = true;
+					outputString = "Hex ID " + pHexID.ToString() + " has brick!";
+					Debug.Log(outputString);
+					break;
+				case (int)ResourceTypes.GRAIN:
+					playerList[0].playerGrain++;
+					addedResource = true;
+					outputString = "Hex ID " + pHexID.ToString() + " has grain!";
+					Debug.Log(outputString);
+					break;
+				case (int)ResourceTypes.WOOD:
+					playerList[0].playerWood++;
+					addedResource = true;
+					outputString = "Hex ID " + pHexID.ToString() + " has wood!";
+					Debug.Log(outputString);
+					break;
+				case (int)ResourceTypes.WOOL:
+					playerList[0].playerWool++;
+					addedResource = true;
+					outputString = "Hex ID " + pHexID.ToString() + " has wool!";
+					Debug.Log(outputString);
+					break;
+			} // end switch
+		} // end foreach (int pHexID in hexIDs)...
+
+		if (addedResource)
+		{
+			UIControllerScript.DisplayPlayerResources(playerList[0].playerGrain, playerList[0].playerWood,
+			                                          playerList[0].playerBrick, playerList[0].playerWool);
+		}
+	} // end method CalcNewResources
+
+	private int FindHexIDResource(int pHexID)
+	{
+		foreach (HexDataScript hexData in hexList)
+		{
+			if ((hexData.hexDataID == pHexID) && (hexData.hexDataNumber == diceRollValue))
+			{
+				return (int)hexData.hexDataResourceType;
+			}
+		}
+		return -1;
+	} // end method FindHexIDResource
 
 	public void AddSettlement(string pHexPrefabName, string vertexName)
 	{
@@ -265,7 +388,6 @@ public class GameControlScript : MonoBehaviour {
 
 	private bool CheckAdjacentRoad(Vector3 pSettDataPosition, bool lowVertex)
 	{
-//		const float MAX_VECTOR_DIFF = 0.3f;
 		const float MAX_VECTOR_DIFF = 0.01f;
 		string outputString;
 		Vector3[] tempRoadPositions = new Vector3[3];
@@ -280,21 +402,14 @@ public class GameControlScript : MonoBehaviour {
 		if (lowVertex)
 		{
 			tempRoadPositions[0] = pSettDataPosition + new Vector3(0f, 0.3046877f, -0.1f);
-//			tempRoadPositions[0] = pSettDataPosition + new Vector3(0f, 0.2886751f, -0.1f);
-			//0.3046877
 			tempRoadPositions[1] = pSettDataPosition + new Vector3(0.25f, -0.125f, -0.1f);
 			tempRoadPositions[2] = pSettDataPosition + new Vector3(-0.25f, -0.125f, -0.1f);
-//			tempRoadPositions[1] = pSettDataPosition + new Vector3(0.25f, -0.2113249f, -0.1f);
-//			tempRoadPositions[2] = pSettDataPosition + new Vector3(-0.25f, -0.2113249f, -0.1f);
 		}
 		else
 		{
 			tempRoadPositions[0] = pSettDataPosition + new Vector3(0f, -0.3046877f, -0.1f);
-//			tempRoadPositions[0] = pSettDataPosition + new Vector3(0f, -0.2886751f, -0.1f);
 			tempRoadPositions[1] = pSettDataPosition + new Vector3(0.25f, 0.125f, -0.1f);
 			tempRoadPositions[2] = pSettDataPosition + new Vector3(-0.25f, 0.125f, -0.1f);
-//			tempRoadPositions[1] = pSettDataPosition + new Vector3(0.25f, 0.2113249f, -0.1f);
-//			tempRoadPositions[2] = pSettDataPosition + new Vector3(-0.25f, 0.2113249f, -0.1f);
 		}
 		
 		for (int i = 0; i < 3; i++)
