@@ -12,6 +12,9 @@ TagManager:
   - Wood
   - HexRenderer
   - Vertex
+  - Side
+  - NewMapButton
+  - GameControllerObject
   layers:
   - Default
   - TransparentFX

@@ -8,14 +8,39 @@ public class GameControlScript : MonoBehaviour {
 
 	public GameObject hexPrefab;
 	public GameObject settPrefab;
+	public GameObject roadPrefab;
 
-	private List<HexDataScript> hexList;
 	private List<PlayerDataScript> playerList;
+	private List<HexDataScript> hexList;
 	private List<SettDataScript> settList;
+	private List<RoadDataScript> roadList;
+
+	private int currentPhase = -1; // should be 0 (minimum) through 6 (maximum)
+	private string currentPlayer; // should be the name of one of the players in the playerList
+
+	private bool currentPhaseDone = false;
+	private bool gameOver = false;
+//	private bool phase0Done = true;
+//	private bool phase1Done = true;
+//	private bool phase2Done = true;
+//	private bool phase3Done = true;
+//	private bool phase4Done = true;
+//	private bool phase5Done = true;
+//	private bool phase6Done = true;
+	private PlayerUIController UIControllerScript;
+	private int diceRollValue = 0; // should be 1 (minimum) through 6 (maximum)
 
 	// Use this for initialization
 	void Start () {
+
+		currentPhaseDone = false;
+		gameOver = false;
+		HelperScript.enableRoads = false;  // public static variable
+		HelperScript.enableSettlements = false;  // public static variable
 		hexList = gameObject.GetComponent<MapDataScript>().LoadMapData();
+		UIControllerScript = Camera.main.GetComponent<PlayerUIController>();
+//		UIControllerScript.DisplayDiceRoll(true);
+//		UIControllerScript.DisplayDiceValue(3);
 
 		if (hexList != null)
 		{
@@ -32,10 +57,10 @@ public class GameControlScript : MonoBehaviour {
 		playerList = new List<PlayerDataScript>();
 
 		PlayerDataScript tempPlayerData = new PlayerDataScript();
-		tempPlayerData.playerColor = "Yellow";
-		tempPlayerData.playerHexList = new List<HexDataScript>();
-		tempPlayerData.playerName = "Test Player";
+		tempPlayerData.playerName = "Test Player"; // HelperScript.playerName
 		tempPlayerData.playerNumber = playerList.Count + 1;
+		tempPlayerData.playerColor = "Yellow"; // HelperScript.playerColor
+		tempPlayerData.playerHexList = new List<HexDataScript>();
 		tempPlayerData.playerPhase = "Phase0";
 		playerList.Add(tempPlayerData);
 
@@ -46,7 +71,167 @@ public class GameControlScript : MonoBehaviour {
 		}
 
 		settList = new List<SettDataScript>();
+		roadList = new List<RoadDataScript>();
+
+//		HelperScript.LoadMapNames();
+//		LogMapNames();
+//		HelperScript.LoadGameNames();
+//		LogGameNames();
+
+		currentPhase = 0;
+		RunGame();
 	} // end method Start
+	
+	public void SetGamePhase(int pGamePhase)
+	{
+		currentPhase = pGamePhase;
+		RunGame();
+	}
+
+	private void RunGame()
+	{
+		string outputString = "";
+
+		switch (currentPhase)
+		{
+			case 0:
+				StartCoroutine("RunPhase0");
+				break;
+			case 1:
+				StartCoroutine("RunPhase1");
+				break;
+			case 2:
+//			StartCoroutine("RunPhase1");
+				outputString = "Starting Phase 2!";
+				Debug.Log(outputString);
+				break;
+			default:
+				outputString = "Game is over!  Thank you for playing!";
+				Debug.Log(outputString);
+				break;
+		}
+	} // end method RunGame
+	
+	IEnumerator RunPhase0()
+	{
+		currentPhaseDone = false;
+		HelperScript.enableRoads = true;
+		HelperScript.enableSettlements = true;
+		while ((roadList.Count == 0) || (settList.Count == 0))
+		{
+			if (roadList.Count > 0)
+				HelperScript.enableRoads = false;
+			if (settList.Count > 0)
+				HelperScript.enableSettlements = false;
+			
+			yield return new WaitForSeconds(.1f);
+		}
+		currentPhaseDone = true;
+	} // end method RunPhase0
+	
+	IEnumerator RunPhase1()
+	{
+		currentPhaseDone = false;
+		UIControllerScript.EnableRollDiceButton(false);
+		diceRollValue = 0;
+		StartCoroutine("RunDiceRoll");
+		while (diceRollValue == 0)
+		{
+			yield return new WaitForSeconds(.1f);
+		}
+		CalcNewResources(); // should be a coroutine?
+		UIControllerScript.EnableRollDiceButton(true);
+		currentPhaseDone = true;
+	} // end method RunPhase1
+
+	IEnumerator RunDiceRoll()
+	{
+		int tempDiceValue = 0;
+
+		diceRollValue = 0;
+		UIControllerScript.DisplayDiceRoll(true);
+		for (int i = 0; i < 40; i++)
+		{
+			tempDiceValue = Random.Range(1, 7); // should return a random value between 1 and 6
+			UIControllerScript.DisplayDiceValue(tempDiceValue);
+			yield return new WaitForSeconds(.1f);
+		}
+		diceRollValue = tempDiceValue;
+	} // end method RunDiceRoll
+
+	private void CalcNewResources()
+	{
+		bool addedResource = false;
+		List<int> hexIDs = new List<int>();
+		string outputString;
+
+		if (settList.Count == 0)
+			return;
+		foreach (SettDataScript settData in settList)
+		{
+			if (settData.settDataPlayer == playerList[0].playerName)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					if (settData.settHexNeighbors[i] > 0)
+					{
+						hexIDs.Add(settData.settHexNeighbors[i]);
+					}
+				}
+			}
+		}
+
+		if (hexIDs.Count == 0)
+			return;
+		foreach (int pHexID in hexIDs)
+		{
+			switch (FindHexIDResource(pHexID))
+			{
+				case (int)ResourceTypes.BRICK:
+					playerList[0].playerBrick++;
+					addedResource = true;
+					outputString = "Hex ID " + pHexID.ToString() + " has brick!";
+					Debug.Log(outputString);
+					break;
+				case (int)ResourceTypes.GRAIN:
+					playerList[0].playerGrain++;
+					addedResource = true;
+					outputString = "Hex ID " + pHexID.ToString() + " has grain!";
+					Debug.Log(outputString);
+					break;
+				case (int)ResourceTypes.WOOD:
+					playerList[0].playerWood++;
+					addedResource = true;
+					outputString = "Hex ID " + pHexID.ToString() + " has wood!";
+					Debug.Log(outputString);
+					break;
+				case (int)ResourceTypes.WOOL:
+					playerList[0].playerWool++;
+					addedResource = true;
+					outputString = "Hex ID " + pHexID.ToString() + " has wool!";
+					Debug.Log(outputString);
+					break;
+			} // end switch
+		} // end foreach (int pHexID in hexIDs)...
+
+		if (addedResource)
+		{
+			UIControllerScript.DisplayPlayerResources(playerList[0].playerGrain, playerList[0].playerWood,
+			                                          playerList[0].playerBrick, playerList[0].playerWool);
+		}
+	} // end method CalcNewResources
+
+	private int FindHexIDResource(int pHexID)
+	{
+		foreach (HexDataScript hexData in hexList)
+		{
+			if ((hexData.hexDataID == pHexID) && (hexData.hexDataNumber == diceRollValue))
+			{
+				return (int)hexData.hexDataResourceType;
+			}
+		}
+		return -1;
+	} // end method FindHexIDResource
 
 	public void AddSettlement(string pHexPrefabName, string vertexName)
 	{
@@ -96,7 +281,10 @@ public class GameControlScript : MonoBehaviour {
 		} // end switch
 
 		if (!validVertex)
+		{
+			HelperScript.enableSettlements = true;
 			return;
+		}
 
 		foreach (HexDataScript hexData in hexList)
 		{
@@ -105,13 +293,18 @@ public class GameControlScript : MonoBehaviour {
 				Vector3 newPosition = hexData.hexDataPosition + vertexOffset;
 				if (!SettPositionEmpty(newPosition))
 				{
+					HelperScript.enableSettlements = true;
+					return;
+				}
+				else if (!CheckAdjacentRoad(newPosition, lowVertex))
+				{
+					HelperScript.enableSettlements = true;
 					return;
 				}
 				else
 				{
 					GameObject newSettlement = (GameObject)Instantiate(settPrefab, newPosition,
 						Quaternion.Euler(-90, 0, 0));
-	//					hexData.hexDataPosition + vertexOffset, Quaternion.Euler(-90, 0, 0));
 					newSettlement.name = settlementName;
 					newSettlement.GetComponent<SettPrefabData>().SetSettName(newSettlement.name);
 					newSettlement.GetComponent<SettPrefabData>().SetSettNumber(settList.Count + 1);
@@ -133,6 +326,8 @@ public class GameControlScript : MonoBehaviour {
 
 		Debug.Log("Settlement Count: " + settList.Count.ToString());
 		tempSettlementData.LogSettlementData();
+
+		HelperScript.enableSettlements = false; // turn off settlement adding
 	} // end method AddSettlement
 
 	private bool SettPositionEmpty(Vector3 pNewPosition)
@@ -191,8 +386,230 @@ public class GameControlScript : MonoBehaviour {
 		return tempNeighbors;
 	} // end method CalcHexNeighbors
 
+	private bool CheckAdjacentRoad(Vector3 pSettDataPosition, bool lowVertex)
+	{
+		const float MAX_VECTOR_DIFF = 0.01f;
+		string outputString;
+		Vector3[] tempRoadPositions = new Vector3[3];
+		
+		if (roadList.Count == 0)
+		{
+			outputString = "You must place a settlement next to one of your roads!";
+			Debug.Log(outputString);
+			return false;
+		}
+
+		if (lowVertex)
+		{
+			tempRoadPositions[0] = pSettDataPosition + new Vector3(0f, 0.3046877f, -0.1f);
+			tempRoadPositions[1] = pSettDataPosition + new Vector3(0.25f, -0.125f, -0.1f);
+			tempRoadPositions[2] = pSettDataPosition + new Vector3(-0.25f, -0.125f, -0.1f);
+		}
+		else
+		{
+			tempRoadPositions[0] = pSettDataPosition + new Vector3(0f, -0.3046877f, -0.1f);
+			tempRoadPositions[1] = pSettDataPosition + new Vector3(0.25f, 0.125f, -0.1f);
+			tempRoadPositions[2] = pSettDataPosition + new Vector3(-0.25f, 0.125f, -0.1f);
+		}
+		
+		for (int i = 0; i < 3; i++)
+		{
+			foreach (RoadDataScript roadData in roadList)
+			{
+				if ((roadData.roadDataPosition - tempRoadPositions[i]).magnitude < MAX_VECTOR_DIFF)
+				{
+					Debug.Log("Matching Road positions: ");
+					Debug.Log(roadData.roadDataPosition.ToString());
+					Debug.Log(tempRoadPositions[i].ToString());
+					if (roadData.roadDataPlayer == playerList[0].playerName)
+						return true;
+				}
+			}
+		}
+
+		outputString = "You must place a settlement next to one of your roads!";
+		Debug.Log(outputString);
+		return false;
+	} // end method CheckAdjacentRoad
+	
+	public void AddRoad(string pHexPrefabName, string pSideName)
+	{
+		bool foundHex = false;
+		bool validRoad = true;
+		string outputString;
+		string roadName;
+		Vector3 roadPosition = new Vector3(-100f, 100f, 0f);
+		Vector3 roadOffset;
+		float roadRotation = 0f;
+		RoadDataScript tempRoadData;
+
+		roadName = "Road" + (roadList.Count + 1).ToString();
+		switch (pSideName)
+		{
+		case "LeftSide":
+			roadOffset = new Vector3(-0.5f, 0f, -0.1f);
+			roadRotation = 0f;
+			break;
+		case "RightSide":
+			roadOffset = new Vector3(0.5f, 0f, -0.1f);
+			roadRotation = 0f;
+			break;
+		case "ULSide":
+			roadOffset = new Vector3(-0.25f, 0.4296876f, -0.1f);
+			roadRotation = 120f;
+			break;
+		case "URSide":
+			roadOffset = new Vector3(0.25f, 0.4296876f, -0.1f);
+			roadRotation = 60f;
+			break;
+		case "LLSide":
+			roadOffset = new Vector3(-0.25f, -0.4296876f, -0.1f);
+			roadRotation = 60f;
+			break;
+		case "LRSide":
+			roadOffset = new Vector3(0.25f, -0.4296876f, -0.1f);
+			roadRotation = 120f;
+			break;
+		default:
+			validRoad = false;
+			roadOffset = new Vector3(-100f, 100f, 0f);
+			roadRotation = 0f;
+			outputString = "GameControlScript method AddRoad was passed " +
+				"the following invalid side name: " + pSideName;
+			Debug.Log(outputString);
+			break;
+		} // end switch
+		
+		if (!validRoad)
+		{
+			HelperScript.enableRoads = true;
+			return;
+		}
+		
+		foreach (HexDataScript hexData in hexList)
+		{
+			if (!foundHex && hexData.hexDataName == pHexPrefabName)
+			{
+				Vector3 newPosition = hexData.hexDataPosition + roadOffset;
+				if (!RoadPositionEmpty(newPosition))
+				{
+					HelperScript.enableRoads = true;
+					return;
+				}
+				else
+				{
+					GameObject newRoad = (GameObject)Instantiate(roadPrefab, newPosition,
+					                                             Quaternion.Euler(0, 0, roadRotation));
+					newRoad.name = roadName;
+					newRoad.GetComponent<RoadPrefabData>().SetRoadName(newRoad.name);
+					newRoad.GetComponent<RoadPrefabData>().SetRoadID(roadList.Count + 1);
+					newRoad.GetComponent<RoadPrefabData>().SetRoadColor(playerList[0].playerColor);
+					roadPosition = newRoad.transform.position;
+					foundHex = true;
+				}
+			}
+		}
+		
+		tempRoadData = new RoadDataScript();
+		tempRoadData.roadDataName = roadName;
+		tempRoadData.roadDataID = roadList.Count + 1;
+		tempRoadData.roadDataColor = playerList[0].playerColor;
+		tempRoadData.roadDataPosition = roadPosition;
+		tempRoadData.roadDataPlayer = playerList[0].playerName;
+		tempRoadData.roadHexNeighbors = CalcRoadHexNeighbors(roadPosition, roadRotation);
+		roadList.Add(tempRoadData);
+		
+		Debug.Log("Road Count: " + roadList.Count.ToString());
+		tempRoadData.LogRoadData();
+
+		HelperScript.enableRoads = false; // turn off road adding
+	} // end method AddRoad
+	
+	private bool RoadPositionEmpty(Vector3 pNewPosition)
+	{
+		const float MAX_VECTOR_DIFF = 0.01f;
+		string outputString;
+
+		if (roadList.Count == 0)
+			return true;
+		foreach (RoadDataScript roadData in roadList)
+		{
+			if ((roadData.roadDataPosition - pNewPosition).magnitude < MAX_VECTOR_DIFF)
+			{
+				outputString = "Road position is already occupied!";
+				Debug.Log(outputString);
+				return false;
+			}
+		}
+		
+		return true;
+	} // end method RoadPositionEmpty
+	
+	private int[] CalcRoadHexNeighbors(Vector3 pRoadDataPosition, float pRoadRotation)
+	{
+		const float MAX_VECTOR_DIFF = 0.01f;
+		int[] tempNeighbors = new int[2];
+		Vector3[] tempHexPositions = new Vector3[2];
+		
+		if (pRoadRotation < 30f) // value should be 0f
+		{
+			tempHexPositions[0] = pRoadDataPosition + new Vector3(-0.5f, 0f, 0.1f);
+			tempHexPositions[1] = pRoadDataPosition + new Vector3(0.5f, 0f, 0.1f);
+		}
+		else if (pRoadRotation < 90f) // value should be 60f
+		{
+			tempHexPositions[0] = pRoadDataPosition + new Vector3(0.25f, 0.4296876f, 0.1f);
+			tempHexPositions[1] = pRoadDataPosition + new Vector3(-0.25f, -0.4296876f, 0.1f);
+		}
+		else // value should be 120f
+		{
+			tempHexPositions[0] = pRoadDataPosition + new Vector3(-0.25f, 0.4296876f, 0.1f);
+			tempHexPositions[1] = pRoadDataPosition + new Vector3(0.25f, -0.4296876f, 0.1f);
+		}
+
+		for (int i = 0; i < 2; i++)
+		{
+			tempNeighbors[i] = 0;
+			foreach (HexDataScript hexData in hexList)
+			{
+				if ((hexData.hexDataPosition - tempHexPositions[i]).magnitude < MAX_VECTOR_DIFF)
+				{
+					tempNeighbors[i] = hexData.hexDataID;
+					Debug.Log("Matching Hex positions: ");
+					Debug.Log(hexData.hexDataPosition.ToString());
+					Debug.Log(tempHexPositions[i].ToString());
+				}
+			}
+		}
+		return tempNeighbors;
+	} // end method CalcRoadHexNeighbors
+
 	// Update is called once per frame
-//	void Update () {
-//	
-//	}
+	void Update ()
+	{
+		if (gameOver)
+			return;
+		if (currentPhaseDone)
+		{
+			currentPhaseDone = false;
+			currentPhase++;
+			RunGame();
+		}
+	}
+
+	private void LogMapNames()
+	{
+		foreach (string mapName in HelperScript.mapList)
+		{
+			Debug.Log (mapName);
+		}
+	} // end method LogMapNames
+	
+	private void LogGameNames()
+	{
+		foreach (string gameName in HelperScript.gameList)
+		{
+			Debug.Log (gameName);
+		}
+	} // end method LogGameNames
 } // end class GameControlScript
