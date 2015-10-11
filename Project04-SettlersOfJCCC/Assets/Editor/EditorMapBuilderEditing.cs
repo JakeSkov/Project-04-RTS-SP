@@ -80,33 +80,33 @@ public class EditorMapBuilderEditing : EditorMapBuilder
             }
 
             string path = Application.dataPath + "/Maps/Custom/" + levelName + ".txt";
-            Debug.Log(path);
             
             //Writes all data to the given file under that name declared in the levelName variable 
             StreamWriter sw = new StreamWriter(path);
             for (int i = 0; i <= numLines; i++)
             {
+                Debug.Log(line);
                 if (line == 0)
                 {
-                    sw.WriteLine(levelName);
                     Debug.Log(levelName);
+                    sw.WriteLine(levelName);
                 }
                 if (line == 1)
                 {
-                    sw.WriteLine(authorName);
                     Debug.Log(authorName);
+                    sw.WriteLine(authorName);
                 }
                 if (line == 2)
                 {
                     for (int j = 0; j < tiles.Length; j++)
                     {
-                        sw.Write(tiles[j] + " ");
                         Debug.Log(tiles[j]);
+                        sw.Write(tiles[j] + " ");
                     }
                 }
                 line++;
-                Debug.Log(line);
             }
+            sw.Close();
 
             AssetDatabase.Refresh();
         }
