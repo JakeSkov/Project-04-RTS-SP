@@ -19,12 +19,28 @@ public class PlayerDataScript
 	public string playerPhase;
 	public string playerColor;
 	public List<HexDataScript> playerHexList;
-
-	// Use this for initialization
-	//	void Start () {
-	//	
-	//	}
+	public int playerGrain;
+	public int playerWood;
+	public int playerBrick;
+	public int playerWool;
 	
+	// Use this for initialization
+	void Start()
+	{
+		playerGrain = 0;
+		playerWood = 0;
+		playerBrick = 0;
+		playerWool = 0;
+	}
+	
+//	public void UpdatePlayerResources(int pPlayerGrain, int pPlayerWood, int pPlayerBrick, int pPlayerWool)
+//	{
+//		playerGrain = pPlayerGrain;
+//		playerWood = pPlayerWood;
+//		playerBrick = pPlayerBrick;
+//		playerWool = pPlayerWool;
+//	}
+
 	// Update is called once per frame
 	//	void Update () {
 	//	
