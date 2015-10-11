@@ -8,6 +8,7 @@ public class EditorMapBuilderEditing : EditorMapBuilder
     public static ResourceTypes[] type;
     static string[] tiles;
 
+    //Randomizes the map and sets the length of ResourceTypes[] type
     public static void MapRandomize(int side)
     {
         //Sets the array length for each differant side length
@@ -24,6 +25,7 @@ public class EditorMapBuilderEditing : EditorMapBuilder
                 break;
         }
 
+        //Assigns a random resource type to each entry in the type array
         int rand;
         for (int i = 0; i < type.Length; i++)
         {
@@ -47,6 +49,7 @@ public class EditorMapBuilderEditing : EditorMapBuilder
         }
     }
 
+    //Edits the resource type 
     public static void MapEdit(ResourceTypes type)
     {
         switch (type)
@@ -66,6 +69,7 @@ public class EditorMapBuilderEditing : EditorMapBuilder
         }
     }
 
+    //Exports level data
     public static void Export(ResourceTypes[] tile)
     {
         if (levelName != null && authorName != null)
@@ -88,19 +92,16 @@ public class EditorMapBuilderEditing : EditorMapBuilder
                 Debug.Log(line);
                 if (line == 0)
                 {
-                    Debug.Log(levelName);
                     sw.WriteLine(levelName);
                 }
                 if (line == 1)
                 {
-                    Debug.Log(authorName);
                     sw.WriteLine(authorName);
                 }
                 if (line == 2)
                 {
                     for (int j = 0; j < tiles.Length; j++)
                     {
-                        Debug.Log(tiles[j]);
                         sw.Write(tiles[j] + " ");
                     }
                 }
